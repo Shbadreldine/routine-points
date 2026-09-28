@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Routine points</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF2F6;--card:#FFFFFF;--ink:#1D2433;--muted:#566072;--line:#D6DCE5;--gold:#B7800A;--gold-soft:#FBF0D3;
+  --malak:#963A68;--malak-soft:#F6E5EE;--omar:#1D6B62;--omar-soft:#DFF0EC;--on-kid:#FFFFFF;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#131820;--card:#1D2430;--ink:#EEF1F5;--muted:#A6AFBD;--line:#313A48;--gold:#F2C457;--gold-soft:#3A301A;
+    --malak:#E693BC;--malak-soft:#3A2331;--omar:#74CBBE;--omar-soft:#1B3632;--on-kid:#131820;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#131820;--card:#1D2430;--ink:#EEF1F5;--muted:#A6AFBD;--line:#313A48;--gold:#F2C457;--gold-soft:#3A301A;
+  --malak:#E693BC;--malak-soft:#3A2331;--omar:#74CBBE;--omar-soft:#1B3632;--on-kid:#131820;
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:Nunito,system-ui,-apple-system,"Segoe UI",sans-serif;font-size:16px;line-height:1.45}
+body[data-kid="malak"]{--kid:var(--malak);--kid-soft:var(--malak-soft)}
+body[data-kid="omar"]{--kid:var(--omar);--kid-soft:var(--omar-soft)}
+main{max-width:520px;margin:0 auto;padding:16px 16px 96px}
+h1,h2,.big{font-family:Fredoka,Nunito,system-ui,sans-serif;font-weight:600;margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--kid);outline-offset:2px}
+
+.switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;background:var(--card);border:1px solid var(--line);border-radius:18px;padding:6px}
+.switch button{border:0;background:transparent;border-radius:13px;padding:10px 8px;min-height:64px;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.switch button .n{font-family:Fredoka,sans-serif;font-size:19px;font-weight:600}
+.switch button .p{font-size:14px;color:var(--muted);font-weight:700}
+.switch button[aria-pressed="true"]{background:var(--kid);color:var(--on-kid)}
+.switch button[aria-pressed="true"] .p{color:var(--on-kid);opacity:.85}
+
+.balance{display:flex;align-items:baseline;gap:10px;margin:22px 4px 6px}
+.balance .big{font-size:64px;line-height:1;color:var(--kid)}
+.balance .lbl{font-weight:700;color:var(--muted)}
+.next{margin:0 4px 18px;color:var(--muted);font-size:15px}
+
+.days{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:14px}
+.days button{border:1px solid var(--line);background:var(--card);border-radius:12px;padding:6px 0 8px;min-height:56px;display:flex;flex-direction:column;align-items:center;gap:4px}
+.days button .d{font-size:13px;font-weight:700;color:var(--muted)}
+.days button[aria-pressed="true"]{border:2px solid var(--kid)}
+.days button[aria-pressed="true"] .d{color:var(--kid)}
+.dots{display:flex;gap:4px}
+.dot{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--line)}
+.dot.r{background:var(--kid-soft);border-color:var(--kid)}
+.dot.s{background:var(--gold);border-color:var(--gold)}
+
+.routine{background:var(--card);border:1px solid var(--line);border-radius:20px;padding:16px;margin-bottom:12px}
+.routine header{display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.routine h2{font-size:22px}
+.routine .by{font-weight:700;color:var(--muted);font-size:14px;white-space:nowrap}
+.routine ul{list-style:none;padding:0;margin:10px 0 14px;display:flex;flex-wrap:wrap;gap:6px}
+.routine li{background:var(--kid-soft);border-radius:999px;padding:4px 11px;font-size:14px;font-weight:600}
+.choices{display:grid;grid-template-columns:1fr 1.25fr;gap:8px}
+.choices button{border-radius:14px;min-height:60px;padding:8px 10px;font-weight:700;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1.2}
+.choices button small{font-weight:600;font-size:13px}
+.b-rem{background:transparent;border:2px solid var(--kid);color:var(--kid)}
+.b-solo{background:var(--kid);border:2px solid var(--kid);color:var(--on-kid)}
+.b-solo small{opacity:.85}
+.done{display:flex;align-items:center;justify-content:space-between;gap:10px;border-radius:14px;padding:12px 14px;font-weight:700}
+.done.s{background:var(--gold-soft)}
+.done.r{background:var(--kid-soft)}
+.done .pts{font-family:Fredoka,sans-serif;font-size:22px;font-weight:600}
+.done.s .pts{color:var(--gold)}
+.link{border:0;background:none;text-decoration:underline;font-weight:700;color:var(--muted);padding:10px 4px;min-height:44px}
+
+.section{margin:28px 4px 10px;display:flex;justify-content:space-between;align-items:baseline}
+.section h2{font-size:22px}
+.section span{color:var(--muted);font-size:14px;font-weight:600}
+.rewards{background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.reward{display:grid;grid-template-columns:52px 1fr auto;align-items:center;gap:12px;padding:12px 14px;border-top:1px solid var(--line)}
+.reward:first-child{border-top:0}
+.cost{font-family:Fredoka,sans-serif;font-weight:600;font-size:20px;color:var(--gold);text-align:center;background:var(--gold-soft);border-radius:12px;padding:6px 0}
+.reward .t{font-weight:700;line-height:1.25}
+.reward .t small{display:block;font-weight:600;color:var(--muted);font-size:13px}
+.reward button{border:2px solid var(--kid);background:var(--kid);color:var(--on-kid);border-radius:12px;min-height:44px;padding:0 14px;font-weight:800}
+.reward button:disabled{background:transparent;border-color:var(--line);color:var(--muted);cursor:not-allowed}
+
+.history{list-style:none;margin:0;padding:0;background:var(--card);border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.history li{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:6px 6px 6px 14px;border-top:1px solid var(--line);font-size:15px}
+.history li:first-child{border-top:0}
+.history .amt{font-weight:800;min-width:34px;text-align:right}
+.history .plus{color:var(--kid)}
+.history .minus{color:var(--muted)}
+.empty{color:var(--muted);padding:14px;margin:0}
+
+.toast{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);border-radius:14px;padding:6px 6px 6px 16px;display:flex;align-items:center;gap:10px;max-width:calc(100% - 32px);font-weight:700;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+.toast[hidden]{display:none}
+.toast button{border:0;background:transparent;color:var(--bg);text-decoration:underline;font-weight:800;min-height:44px;padding:0 12px}
+.sync{font-size:13px;color:var(--muted);text-align:center;margin-top:28px}
+@media (prefers-reduced-motion:no-preference){.balance .big.bump{animation:bump .35s ease-out}@keyframes bump{40%{transform:scale(1.15)}}}
+</style>
+</head>
+<body data-kid="malak">
+<main>
+  <div class="switch" role="group" aria-label="Choose child" id="switch"></div>
+  <div class="balance"><span class="big" id="bal">0</span><span class="lbl">points to spend</span></div>
+  <p class="next" id="next"></p>
+  <div class="days" role="group" aria-label="Choose day" id="days"></div>
+  <div id="routines"></div>
+  <div class="section"><h2>Rewards</h2><span>Tap to spend points</span></div>
+  <div class="rewards" id="rewards"></div>
+  <div class="section"><h2>Recent</h2></div>
+  <ul class="history" id="history"></ul>
+  <p class="sync" id="sync">Saved on this phone</p>
+</main>
+<div class="toast" id="toast" hidden role="status"><span id="toastMsg"></span><button type="button" id="toastUndo">Undo</button></div>
+
+<script>
+const KIDS = {
+  malak: { name:'Malak',
+    morning:{ tasks:['Brush teeth','Get dressed','Make bed','Fill water bottle','Eat breakfast'], by:'Ready by 7.50am' },
+    bedtime:{ tasks:['Shower','Laundry away','Uniform out','PJs','Brush teeth'], by:'In bed reading by 8.15pm' } },
+  omar: { name:'Omar',
+    morning:{ tasks:['Shower','Brush teeth','Get dressed','Make bed','Fill water bottle','Eat breakfast'], by:'Ready by 7.50am' },
+    bedtime:{ tasks:['Laundry away','Uniform out','PJs','Brush teeth'], by:'In bed reading by 9pm' } }
+};
+const REWARDS = [
+  { id:'pancakes', label:'Pancakes for breakfast', note:'Up to twice a week', cost:5, perWeek:2 },
+  { id:'stickers', label:'Stickers or any stationery item', cost:5 },
+  { id:'frontseat', label:'Front seat of the car all week', cost:15 },
+  { id:'lego', label:'A Lego set', cost:15 },
+  { id:'football', label:'Watch a football match after school', note:'Once a week', cost:20, perWeek:1 },
+  { id:'icecream', label:'Ice cream on the weekend', cost:20 },
+  { id:'outing', label:'A special weekend outing', cost:25 },
+  { id:'movie', label:'Choose a weekend movie', note:'On top of normal screen time', cost:30 }
+];
+const LS_KEY = 'routine-points-v1';
+let state = { log: [] };
+let kid = 'malak';
+let day = iso(new Date());
+let ref = null;
+let lastAdded = null, toastTimer = null;
+
+function iso(d){ const z=new Date(d.getTime()-d.getTimezoneOffset()*60000); return z.toISOString().slice(0,10); }
+function parse(s){ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d); }
+function weekStart(s){ const d=parse(s); const w=(d.getDay()+6)%7; d.setDate(d.getDate()-w); return iso(d); }
+function balance(k){ return state.log.filter(e=>e.kid===k).reduce((a,e)=>a+e.pts,0); }
+function entry(k,date,kind){ return state.log.find(e=>e.kid===k&&e.date===date&&e.kind===kind); }
+function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+
+function loadLocal(){ try{ const s=localStorage.getItem(LS_KEY); if(s){ const d=JSON.parse(s); if(d&&Array.isArray(d.log)) state=d; } }catch(e){} }
+function saveLocal(){ try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){} }
+async function save(){
+  saveLocal();
+  if(ref){ try{ await ref.set({ log: state.log }); setSync('Saved and synced'); }catch(e){ setSync('Saved on this phone only — sync failed'); } }
+}
+function setSync(t){ document.getElementById('sync').textContent=t; }
+
+function add(e){
+  e.id=uid(); e.at=new Date().toISOString();
+  state.log.push(e); lastAdded=e.id;
+  save(); render(true);
+  toast(e.pts>0 ? `${KIDS[e.kid].name}: +${e.pts} points` : `${KIDS[e.kid].name} spent ${-e.pts} points`);
+}
+function remove(id){ state.log=state.log.filter(e=>e.id!==id); save(); render(); }
+
+function toast(msg){
+  const t=document.getElementById('toast');
+  document.getElementById('toastMsg').textContent=msg; t.hidden=false;
+  clearTimeout(toastTimer); toastTimer=setTimeout(()=>{ t.hidden=true; lastAdded=null; },6000);
+}
+document.getElementById('toastUndo').onclick=()=>{ if(lastAdded){ remove(lastAdded); lastAdded=null; } document.getElementById('toast').hidden=true; };
+
+function render(bump){
+  document.body.dataset.kid=kid;
+  // child switch
+  document.getElementById('switch').innerHTML=Object.entries(KIDS).map(([k,v])=>
+    `<button type="button" data-k="${k}" aria-pressed="${k===kid}" style="--kid:var(--${k})"><span class="n">${v.name}</span><span class="p">${balance(k)} points</span></button>`).join('');
+  document.querySelectorAll('#switch button').forEach(b=>b.onclick=()=>{ kid=b.dataset.k; render(); });
+
+  const bal=balance(kid), balEl=document.getElementById('bal');
+  balEl.textContent=bal;
+  if(bump){ balEl.classList.remove('bump'); void balEl.offsetWidth; balEl.classList.add('bump'); }
+  const nextR=REWARDS.filter(r=>r.cost>bal).sort((a,b)=>a.cost-b.cost)[0];
+  document.getElementById('next').textContent = nextR ? `${nextR.cost-bal} more for ${nextR.label.toLowerCase()}` : 'Enough for any reward on the menu';
+
+  // week strip
+  const ws=parse(weekStart(iso(new Date()))), today=iso(new Date());
+  const names=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+  let dh='';
+  for(let i=0;i<7;i++){
+    const d=new Date(ws); d.setDate(ws.getDate()+i); const s=iso(d);
+    const dot=kind=>{ const e=entry(kid,s,kind); return `<span class="dot ${e?(e.level==='solo'?'s':'r'):''}"></span>`; };
+    dh+=`<button type="button" data-d="${s}" aria-pressed="${s===day}" ${s>today?'disabled':''} aria-label="${names[i]}${s===today?' (today)':''}"><span class="d">${s===today?'Today':names[i]}</span><span class="dots">${dot('morning')}${dot('bedtime')}</span></button>`;
+  }
+  const daysEl=document.getElementById('days'); daysEl.innerHTML=dh;
+  daysEl.querySelectorAll('button').forEach(b=>b.onclick=()=>{ day=b.dataset.d; render(); });
+
+  // routines
+  const k=KIDS[kid];
+  document.getElementById('routines').innerHTML=['morning','bedtime'].map(kind=>{
+    const r=k[kind], e=entry(kid,day,kind);
+    const title=kind==='morning'?'Morning':'Bedtime';
+    const body = e
+      ? `<div class="done ${e.level==='solo'?'s':'r'}"><span>${e.level==='solo'?'All by myself':'With reminders'}</span><span class="pts">+${e.pts}</span></div>
+         <button type="button" class="link" data-undo="${e.id}">Undo</button>`
+      : `<div class="choices">
+           <button type="button" class="b-rem" data-kind="${kind}" data-level="rem">With reminders<small>+2 points</small></button>
+           <button type="button" class="b-solo" data-kind="${kind}" data-level="solo">All by myself, on time<small>+5 points</small></button>
+         </div>`;
+    return `<section class="routine"><header><h2>${title}</h2><span class="by">${r.by}</span></header>
+      <ul>${r.tasks.map(t=>`<li>${esc(t)}</li>`).join('')}</ul>${body}</section>`;
+  }).join('');
+  document.querySelectorAll('#routines [data-kind]').forEach(b=>b.onclick=()=>{
+    const solo=b.dataset.level==='solo';
+    add({ kid, date:day, kind:b.dataset.kind, level:solo?'solo':'reminded', pts:solo?5:2 });
+  });
+  document.querySelectorAll('#routines [data-undo]').forEach(b=>b.onclick=()=>remove(b.dataset.undo));
+
+  // rewards
+  const thisWeek=weekStart(today);
+  document.getElementById('rewards').innerHTML=REWARDS.map(r=>{
+    const used = r.perWeek ? state.log.filter(e=>e.kid===kid&&e.kind==='reward'&&e.reward===r.id&&weekStart(e.date)===thisWeek).length : 0;
+    const usedWeek = r.perWeek && used>=r.perWeek;
+    const can = bal>=r.cost && !usedWeek;
+    const label = usedWeek ? 'Used' : 'Spend';
+    const note = usedWeek ? 'All used this week' : (used>0 ? `${used} of ${r.perWeek} used this week` : (r.note||''));
+    return `<div class="reward"><span class="cost">${r.cost}</span><span class="t">${esc(r.label)}${note?`<small>${esc(note)}</small>`:''}</span>
+      <button type="button" data-r="${r.id}" ${can?'':'disabled'} aria-label="${label} ${r.cost} points on ${esc(r.label)}">${label}</button></div>`;
+  }).join('');
+  document.querySelectorAll('#rewards [data-r]').forEach(b=>b.onclick=()=>{
+    const r=REWARDS.find(x=>x.id===b.dataset.r);
+    add({ kid, date:today, kind:'reward', reward:r.id, label:r.label, pts:-r.cost });
+  });
+
+  // history
+  const hist=state.log.filter(e=>e.kid===kid).sort((a,b)=>b.at.localeCompare(a.at)).slice(0,10);
+  const fmt=s=>parse(s).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  document.getElementById('history').innerHTML = hist.length ? hist.map(e=>{
+    const what = e.kind==='reward' ? esc(e.label) : `${e.kind==='morning'?'Morning':'Bedtime'} ${e.level==='solo'?'by myself':'with reminders'}`;
+    return `<li><span>${fmt(e.date)} · ${what}</span><span style="display:flex;align-items:center"><span class="amt ${e.pts>0?'plus':'minus'}">${e.pts>0?'+':''}${e.pts}</span><button type="button" class="link" data-del="${e.id}" aria-label="Remove">Remove</button></span></li>`;
+  }).join('') : `<p class="empty">Nothing yet. Tap a routine above after ${k.name} finishes.</p>`;
+  document.querySelectorAll('#history [data-del]').forEach(b=>b.onclick=()=>remove(b.dataset.del));
+}
+
+loadLocal();
+render();
+
+(async()=>{
+  let db=null;
+  try{ db = window.claude && window.claude.use ? await window.claude.use('db') : null; }catch(e){ db=null; }
+  if(!db) return;
+  ref=db.doc('tracker/state');
+  ref.onSnapshot(snap=>{
+    if(snap.exists){
+      const d=snap.data();
+      if(d && Array.isArray(d.log)){ state.log=d.log; saveLocal(); render(); setSync('Saved and synced'); }
+    } else if(state.log.length){ save(); }
+    else setSync('Saved and synced');
+  }, ()=>setSync('Saved on this phone only — sync unavailable'));
+})();
+</script>
+</body>
+</html>
